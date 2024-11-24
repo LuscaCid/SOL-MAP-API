@@ -14,6 +14,7 @@ import { hash, compare } from 'bcryptjs';
 import { LoginDTO } from 'src/Auth/dtos/Login.dto';
 import { AuthService } from './auth.service';
 import { PasswordDTO } from './dtos/PasswordDTO.dto';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthorizationController {
@@ -23,6 +24,7 @@ export class AuthorizationController {
   ) {}
   @skipStep()
   @SkipAuth()
+  @ApiBody({ type : LoginDTO })
   @Post('/signin')
   async createLogin(@Body() data: LoginDTO) {
     const { email, password } = data;
@@ -33,16 +35,17 @@ export class AuthorizationController {
     //comparsion between passwords
     const isCorrect = await compare(password, userFound.password);
     if (!isCorrect) throw new UnauthorizedException('Senha inválida.');
-
+    
     const payload = await this.jwtService.signAsync(userFound);
     return {
       access_token: payload, //only email token, it cannot provide access to application for this user
     };
   }
- 
+  
   @skipStep()
   @SkipAuth() // i dont need to verify if token was passed in requisition cuz i want to register here
   @Post('/signup')
+  @ApiBody({ type : RegisterBodyDTO })
   async createUser(@Body() data: RegisterBodyDTO) {
     const { email, password, username } = data;
 

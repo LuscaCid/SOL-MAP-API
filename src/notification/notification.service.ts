@@ -12,4 +12,9 @@ export class NotificationService {
         private readonly notificationModel : Model<Notification>
     ){}
 
+    async getUserNotifications (userId : string) {
+        const data =await this.notificationModel.find({userId})
+
+        return data;
+    }
 }
