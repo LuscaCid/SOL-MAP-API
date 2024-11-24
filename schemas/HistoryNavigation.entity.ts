@@ -7,7 +7,7 @@ import { Document } from "mongoose";
  * @summary Class thats defines the model from historyNavigation and its used for the documentation
  */
 @Schema({ collection : "HistoryNavigation" })
-export class HistoryNavigation extends Document{
+export class HistoryNavigation extends Document {
     //target place 
     @ApiProperty({description : "id do lugar registrado no banco dentro da organização que faz referencia ao destino da viagem"})
     @IsString()
