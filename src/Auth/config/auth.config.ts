@@ -1,4 +1,6 @@
+import { ServerConfig } from "config/server.config";
+
 export default {
-  jwtSecret: process.env.JWT_SECRET,
+  jwtSecret: ServerConfig.getEnv("JWT_SECRET"),
   expiresIn: '1d',
 };

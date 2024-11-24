@@ -5,6 +5,7 @@ import { ServerConfig } from 'config/server.config';
 import { InterceptRequest } from './Auth/interceptRequest';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthGuard } from './Auth/auth.guard';
+import { AuthModule } from './Auth/auth.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { AuthGuard } from './Auth/auth.guard';
       ServerConfig.getMongoDbConnectionString(),
       ServerConfig.getMongoDbConfig()
     ),
-    UserModule
+    UserModule,
+    AuthModule
   ],
   providers : [
     {
