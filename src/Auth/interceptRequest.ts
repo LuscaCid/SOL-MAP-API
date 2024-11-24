@@ -12,8 +12,11 @@ import authConfig from './config/auth.config';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_STEP } from './config/contants';
 import { User } from 'schemas/user.entity';
+/**
+ * @summary A classe tem como objetivo realizar a interceptacao das requisicoes
+ */
 @Injectable()
-export class VerifyUserInRequest implements NestInterceptor {
+export class InterceptRequest implements NestInterceptor {
   constructor(
     private readonly jwtService: JwtService,
     private reflector: Reflector,
@@ -30,6 +33,8 @@ export class VerifyUserInRequest implements NestInterceptor {
     if (isPublicStep) return next.handle();
 
     const request = context.switchToHttp().getRequest<Request>();
+
+    //vai obter o token dentro dos cabecalhos da requisicao
     const [, token] = request.headers.authorization.split(' ');
     const datainsidetoken: User = this.jwtService.verify(token, {
       secret: authConfig.jwtSecret,
