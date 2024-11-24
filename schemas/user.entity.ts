@@ -5,7 +5,7 @@ import { Document } from "mongoose";
 export class User extends Document{
     @Prop({type : String})
 
-    name : string
+    fullName : string
     @Prop({type : String})
 
     email : string

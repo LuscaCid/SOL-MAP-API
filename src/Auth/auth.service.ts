@@ -7,6 +7,9 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from 'schemas/user.entity';
 import { Model } from 'mongoose';
 
+/**
+ * changes made inside this service to correspond to an injection of mongoose model
+ */
 @Injectable()
 export class AuthService {
   constructor(
