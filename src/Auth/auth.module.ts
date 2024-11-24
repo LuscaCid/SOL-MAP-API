@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthorizationController } from './auth.Controller';
 import { JwtModule } from '@nestjs/jwt';

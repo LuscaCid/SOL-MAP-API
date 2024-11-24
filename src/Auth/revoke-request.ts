@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import authConfig from './config/auth.config';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_STEP } from './config/contants';
-import { UserInsideToken } from 'src/Clients/interfaces/token';
+import { User } from 'schemas/user.entity';
 @Injectable()
 export class VerifyUserInRequest implements NestInterceptor {
   constructor(
@@ -31,12 +31,12 @@ export class VerifyUserInRequest implements NestInterceptor {
 
     const request = context.switchToHttp().getRequest<Request>();
     const [, token] = request.headers.authorization.split(' ');
-    const datainsidetoken: UserInsideToken = this.jwtService.verify(token, {
+    const datainsidetoken: User = this.jwtService.verify(token, {
       secret: authConfig.jwtSecret,
     });
 
-    const { email, user_id, username } = datainsidetoken;
-    if (!email || !user_id || !username)
+    const { email, _id, nickname } = datainsidetoken;
+    if (!email || !_id || !nickname)
       throw new UnauthorizedException('Usuario nao authenticado corretamente.');
     return next.handle();
   }
