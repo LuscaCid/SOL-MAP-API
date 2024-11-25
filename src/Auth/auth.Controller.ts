@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  HttpCode,
   Post,
   Req,
   UnauthorizedException,
@@ -22,10 +23,12 @@ export class AuthorizationController {
     private authService: AuthService,
     private readonly jwtService: JwtService,
   ) {}
+  
   @skipStep()
   @SkipAuth()
   @ApiBody({ type : LoginDTO })
   @Post('/signin')
+  @HttpCode(200)
   async createLogin(@Body() data: LoginDTO) {
     const { email, password } = data;
 
@@ -35,10 +38,14 @@ export class AuthorizationController {
     //comparsion between passwords
     const isCorrect = await compare(password, userFound.password);
     if (!isCorrect) throw new UnauthorizedException('Senha inválida.');
+    const accessToken = await this.jwtService.signAsync({
+      sub : userFound._id, 
+      userName : userFound.nickname
+    });
     
-    const payload = await this.jwtService.signAsync(userFound);
     return {
-      access_token: payload, //only email token, it cannot provide access to application for this user
+      accessToken, //only email token, it cannot provide access to application for this user
+      message : "usuário autenticado com sucesso!"
     };
   }
   
