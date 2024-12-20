@@ -1,7 +1,7 @@
 import { Body, Get, HttpCode, Post, Query } from "@nestjs/common";
 import { GetHistoryNavigationDto } from "./DTO/Gets.dto";
 import { HistoryNavigationService } from "./HistoryNavigation.service";
-import { HistoryNavigation } from "schemas/HistoryNavgation.entity";
+import { HistoryNavigation } from "schemas/HistoryNavigation.entity";
 
 export class HistoryNavigationController {
     constructor(

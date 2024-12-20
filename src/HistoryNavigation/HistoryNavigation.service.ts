@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ServerConfig } from "config/server.config";
 import { Model } from "mongoose";
-import { HistoryNavigation } from "schemas/HistoryNavgation.entity";
+import { HistoryNavigation } from "schemas/HistoryNavigation.entity";
 import { GetHistoryNavigationDto } from "./DTO/Gets.dto";
 
 @Injectable()
